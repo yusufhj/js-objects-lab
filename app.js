@@ -99,9 +99,14 @@ Hint:
 More Hints: The existing starter Pokemon will be *replaced* in your party with the Pokemon it evolved into. When working with an array of objects, the splice() array method is ideal for replacing one element with another. 
 */
 console.log('\n------------------------\nExercise 7');
-game.party.splice(0,1,)
 
-console.log('new game', game);
+const starter = game.party.filter(pokemon => pokemon.starter == true);
+game.party.splice(starter[0], 1, pokemon[1]);
+
+
+console.log('New Party:', game.party);
+
+// console.log('new game', game);
 
 /*
 Exercise 8
@@ -109,7 +114,9 @@ Exercise 8
 2. Consider using a loop or an array method to access each Pokémon's name
 */
 console.log('\n------------------------\nExercise 8');
-
+for (let i = 0; i < game.party.length; i++) {
+    console.log(`Pokemon number ${i} is ${game.party[i].name}`);
+}
 
 /*
 Exercise 9
@@ -118,7 +125,8 @@ Exercise 9
 */
 console.log('\n------------------------\nExercise 9');
 
-
+const starters = pokemon.filter(pokemon => pokemon.starter == true);
+starters.forEach(pokemon => console.log(pokemon.name));
 
 /*
 Exercise 10
@@ -131,7 +139,13 @@ After writing this method, call it and pass in a Pokemon object of your choice f
 */
 console.log('\n------------------------\nExercise 10');
 
+game.catchPokemon = function(pokemonObj) {
+    this.party.push(pokemonObj);
+}
+console.log('Before catching:', game.party);
 
+game.catchPokemon(pokemon[3]);
+console.log('After catching:', game.party);
 
 /*
 Exercise 11
@@ -145,6 +159,16 @@ Also, log the `game.items` array to confirm that the pokeball quantity is being 
 */
 console.log('\n------------------------\nExercise 11');
 
+game.catchPokemon = function(pokemonObj) {
+  this.party.push(pokemonObj);
+  this.items[1].quantity--;
+}
+
+console.log('Before catching:', game.items);
+
+game.catchPokemon(pokemon[9]);
+
+console.log('After catching:', game.items);
 
 /*
 Exercise 12
@@ -153,6 +177,15 @@ Exercise 12
 */
 console.log('\n------------------------\nExercise 12');
 
+game.gyms.forEach(gym => {
+    if (gym.difficulty < 6) {
+        gym.completed = true;
+        console.log('Changed difficulty for gym: ', gym);
+    }
+}
+);
+
+console.log('Gyms:', game.gyms);
 
 
 /*
@@ -177,6 +210,25 @@ For example, if five gym objects have a value of `true` on their `completed` pro
 */
 console.log('\n------------------------\nExercise 13');
 
+game.gymStatus = function() {
+    const gymTally = {
+        completed: 0,
+        incomplete: 0
+    }
+    this.gyms.forEach(gym => {
+        if (gym.completed) {
+            gymTally.completed++;
+        } else {
+            gymTally.incomplete++;
+        }
+    });
+    console.log(gymTally);
+}
+
+game.gymStatus();
+
+console.log(game);
+
 
 /*
 Exercise 14
@@ -189,6 +241,12 @@ This method should:
 */
 console.log('\n------------------------\nExercise 14');
 
+game.partyCount = function() {
+    return this.party.length;
+}
+
+console.log('Party count:', game.partyCount());
+
 
 /*
 Exercise 15
@@ -197,6 +255,15 @@ Exercise 15
 */
 console.log('\n------------------------\nExercise 15');
 
+game.gyms.forEach(gym => {
+    if (gym.difficulty < 8) {
+        gym.completed = true;
+        console.log('Changed difficulty for gym: ', gym);
+    }
+}
+);
+
+console.log('Gyms:', game.gyms);
 
 /*
 Exercise 16
@@ -205,4 +272,4 @@ Exercise 16
 */
 console.log('\n------------------------\nExercise 16');
 
-
+console.log(game);
